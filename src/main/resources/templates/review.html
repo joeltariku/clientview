@@ -6,10 +6,9 @@
         <title>Client View</title>
     </head>
     <body>
-        <h1>Review Form</h1>
-        <form action="#" th:action="@{/review}" th:object="${review}" method="post">
-            <p>Id: <input type="text" th:field="*{id}" /></p>
-            <p>Review: <input type="text" th:field="*{content}" /></p>
+        <h1>Edit Review</h1>
+        <form action="#" th:action="@{/review/id}" th:object="${review}" method="get">
+            <p>Id: <input type="text" name="id" /></p>
             <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
         </form>
     </body>
