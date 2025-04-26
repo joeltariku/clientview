@@ -6,8 +6,20 @@
 </head>
 <body>
 <h1>Edit review</h1>
-<p th:text="'id: ' + ${review.id}" />
-<p th:text="'content: ' + ${review.content}" />
-<a href="/review">Submit another message</a>
+<p th:text="'id: ' + ${feedbackData.id}" />
+<p th:text="'content: ' + ${feedbackData.content}" />
+<p th:text="'product name: ' + ${feedbackData.productName}" />
+
+<form action="#" th:action="@{/feedback/edit}" th:object="${feedbackData}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <p>Id: <input type="text" th:field="*{id}" /> </p>
+    <p>Content: <input type="text" th:field="*{content}" /> </p>
+    <p>Product Name: <input type="text" th:field="*{productName}" /></p>
+
+    <p><input type="submit" value="Update" /></p>
+</form>
+
+<a href="/review">cancel</a>
 </body>
 </html>

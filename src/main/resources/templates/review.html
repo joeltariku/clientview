@@ -7,8 +7,8 @@
 </head>
 <body>
 <h1>Edit Review</h1>
-<form action="#" th:action="@{/review/id}" th:object="${review}" method="get">
-    <p>Id: <input type="text" name="id" /></p>
+<form action="#" th:action="@{/feedback}" th:object="${feedbackData}" method="get">
+    <p>Id: <input type="text" th:field="*{id}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
 </body>

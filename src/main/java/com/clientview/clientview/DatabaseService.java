@@ -1,10 +1,22 @@
 package com.clientview.clientview;
-
+import org.junit.jupiter.api.Assertions;
+import org.springframework.boot.autoconfigure.jms.JmsProperties;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.HandlerMapping;
 
 @Service
 public class DatabaseService {
+    private final HandlerMapping resourceHandlerMapping;
+
+    public DatabaseService(HandlerMapping resourceHandlerMapping) {
+        this.resourceHandlerMapping = resourceHandlerMapping;
+    }
+
     public void testDB(){
         RestTemplate restTemplate = new RestTemplate();
 
@@ -12,9 +24,30 @@ public class DatabaseService {
         System.out.println(testDB);
     }
 
-    public Review getReviewById(Long id){
+    public FeedbackData getReviewById(Long id){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8081/id/?id=%s".formatted(id);
-        return restTemplate.getForObject(url, Review.class);
+        String url = "http://localhost:8081/id?id=%s".formatted(id);
+        return restTemplate.getForObject(url, FeedbackData.class);
+    }
+
+    public void editFeedback(FeedbackData feedback){
+        /*
+        RestTemplate template = new RestTemplate();
+        String resourceUrl =
+                "http://localhost:8081/edit";
+        HttpEntity<FeedbackData> requestUpdate = new HttpEntity<>(feedback);
+        template.exchange(resourceUrl, HttpMethod.PUT, requestUpdate, Void.class);*/
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<FeedbackData> request = new HttpEntity<>(feedback, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.exchange(
+                "http://localhost:8081/edit",
+                HttpMethod.PUT,
+                request,
+                Void.class
+        );
     }
 }
