@@ -26,8 +26,13 @@ public class DatabaseService {
 
     public FeedbackData getReviewById(Long id){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8081/id?id=%s".formatted(id);
-        return restTemplate.getForObject(url, FeedbackData.class);
+        try {
+            String url = "http://localhost:8084/getFeedback/%s".formatted(id);
+            return restTemplate.getForObject(url, FeedbackData.class);
+        } catch (Exception e) {
+            String url = "http://localhost:8081/id?id=%s".formatted(id);
+            return restTemplate.getForObject(url, FeedbackData.class);
+        }
     }
 
     public void editFeedback(FeedbackData feedback){
@@ -38,10 +43,10 @@ public class DatabaseService {
         HttpEntity<FeedbackData> requestUpdate = new HttpEntity<>(feedback);
         template.exchange(resourceUrl, HttpMethod.PUT, requestUpdate, Void.class);*/
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<FeedbackData> request = new HttpEntity<>(feedback, headers);
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_JSON);
+        System.out.println(feedback.getProductName());
+        HttpEntity<FeedbackData> request = new HttpEntity<>(feedback);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.exchange(
                 "http://localhost:8081/edit",

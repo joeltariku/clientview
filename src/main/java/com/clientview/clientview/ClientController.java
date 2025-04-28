@@ -31,9 +31,10 @@ public class ClientController {
         model.addAttribute("feedbackData", feedbackData);
         return "result";
     }
+
     @PostMapping("/feedback/edit")
-    public String editFeedback(FeedbackData feedback, Model model){
-        dbs.editFeedback(feedback);
+    public String editFeedback(@ModelAttribute FeedbackData feedbackData, Model model){
+        dbs.editFeedback(feedbackData);
         return "review";
     }
 }
