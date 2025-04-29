@@ -9,6 +9,7 @@ public class FeedbackData {
     @JsonProperty("product_name")
     String productName;
     String content;
+
     @JsonProperty("metadata")
     Map<String,String> metaData;
 
@@ -26,19 +27,35 @@ public class FeedbackData {
     public long getId() {
         return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     public String getProductName() {
         return productName;
     }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
     public String getContent() {
         return content;
     }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Map<String,String> getMetaData() {
         return metaData;
     }
-    public UserData getAuthor() {return author; }
 
-    public class UserData {
-        long id;
-        public long getId() { return id; }
+    public void setMetaData(Map<String,String> metaData) {
+        this.metaData = metaData;
     }
+
+    public UserData getAuthor() {return author;}
+
+    public void setAuthor(UserData author) {this.author = author;}
 }

@@ -11,8 +11,10 @@
 <p th:text="'product name: ' + ${feedbackData.productName}" />
 
 <form action="#" th:action="@{/feedback/edit}" th:object="${feedbackData}" method="post">
-    <input type="hidden" th:field="*{id}" />
 
+    <input type="hidden" name="metaData['isBugReport']" th:value="${feedbackData.metaData['isBugReport']}" />
+    <input type="hidden" name="metaData['DateTime']" th:value="${feedbackData.metaData['DateTime']}" />
+    <input type="hidden" name="author.id" th:value="${feedbackData.author.id}"/>
     <p>Id: <input type="text" th:field="*{id}" /> </p>
     <p>Content: <input type="text" th:field="*{content}" /> </p>
     <p>Product Name: <input type="text" th:field="*{productName}" /></p>

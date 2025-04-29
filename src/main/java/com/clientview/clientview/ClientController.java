@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class ClientController {
     @Autowired DatabaseService dbs;
@@ -16,18 +17,10 @@ public class ClientController {
         return "review";
     }
 
-
-    /*
-    @PostMapping("/review")
-    public String reviewSubmit(@ModelAttribute FeedbackData feedbackData, Model model) {
-        model.addAttribute("feedbackData", feedbackData);
-        return "result";
-    }*/
-
-    //@RequestParam("id")
     @GetMapping("/feedback")
     public String getById(@RequestParam("id") Long id, Model model) {
         FeedbackData feedbackData = dbs.getReviewById(id);
+        System.out.println(feedbackData.author.getId());
         model.addAttribute("feedbackData", feedbackData);
         return "result";
     }
@@ -35,6 +28,7 @@ public class ClientController {
     @PostMapping("/feedback/edit")
     public String editFeedback(@ModelAttribute FeedbackData feedbackData, Model model){
         dbs.editFeedback(feedbackData);
+        model.addAttribute("feedbackData", feedbackData);
         return "review";
     }
 }
